@@ -8,10 +8,7 @@ class Book:
         self.available = True
 
     def is_available(self):
-        if self.available:
-            return True
-        else:
-            return False
+        return self.available
     
 def add_book(library):
     title = input("Enter the title of the book: ")
@@ -23,10 +20,13 @@ def add_book(library):
     
 
 def check_out(library, isbn, user):
-    if library[isbn].is_available():
-        library[isbn].available = False
-        print(f"{library[isbn].title} has been checked out.")
-        user.loan_book(library[isbn])
+    if isbn in library:
+        if library[isbn].is_available():
+            library[isbn].available = False
+            print(f"{library[isbn].title} has been checked out.")
+            user.loan_book(library[isbn])
+    else:
+        print("Book not found.")
 
 def return_book(library,isbn):
     if not library[isbn].is_available():
